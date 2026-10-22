@@ -38,6 +38,9 @@ export function SiteLayout() {
             © {new Date().getFullYear()} {settings.textos.rodape}
           </span>
           <span className="row">
+            <Link to="/admin/login" className="muted">
+              Área da equipe
+            </Link>
             {settings.instagram && (
               <a href={instagramUrl(settings.instagram)} target="_blank" rel="noreferrer" className="row" style={{ gap: 6 }}>
                 <Icon name="instagram" size={18} /> Instagram
