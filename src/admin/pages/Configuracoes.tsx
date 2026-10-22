@@ -125,9 +125,9 @@ export function Configuracoes() {
         <button className="btn primary" disabled={salvando} onClick={salvar}>
           {salvando ? "Salvando..." : "Salvar configurações"}
         </button>
-        <a className="btn" href="/" target="_blank" rel="noreferrer">
+        <Link className="btn" to="/" target="_blank" rel="noreferrer">
           Ver o site
-        </a>
+        </Link>
         <span className="spacer" />
         <Link className="btn ghost" to="/admin/minha-conta">
           <Icon name="key" /> Trocar minha senha

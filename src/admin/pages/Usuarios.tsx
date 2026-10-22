@@ -8,6 +8,7 @@ import { Empty, Modal, Spinner, confirmAction, useToast } from "../../components
 import { Icon } from "../../components/Icon";
 import { waLink } from "../../lib/whatsapp";
 import { useSite } from "../../site/SiteContext";
+import { appUrl, redirectUrl } from "../../lib/env";
 
 type Aba = "pendentes" | "ativos" | "bloqueados";
 const ABA_STATUS: Record<Aba, ProfileStatus> = { pendentes: "pendente", ativos: "aprovado", bloqueados: "bloqueado" };
@@ -264,7 +265,7 @@ export function Usuarios() {
                     className="btn whatsapp"
                     target="_blank"
                     rel="noreferrer"
-                    href={waLink(dialogo.u.whatsapp, `Olá, ${dialogo.u.nome.split(" ")[0]}! Sua senha provisória do painel da ${settings.nome} é: ${dialogo.resultado}\nEntre em ${location.origin}/admin/login e crie uma senha nova.`)}
+                    href={waLink(dialogo.u.whatsapp, `Olá, ${dialogo.u.nome.split(" ")[0]}! Sua senha provisória do painel da ${settings.nome} é: ${dialogo.resultado}\nEntre em ${appUrl("/admin/login")} e crie uma senha nova.`)}
                   >
                     <Icon name="whatsapp" size={16} /> Enviar por WhatsApp
                   </a>
@@ -288,7 +289,7 @@ export function Usuarios() {
                 disabled={ocupado}
                 onClick={async () => {
                   const r = await executar(
-                    { action: "reset_password", user_id: dialogo.u.id, modo: "email", redirect_to: `${location.origin}/admin/redefinir-senha` },
+                    { action: "reset_password", user_id: dialogo.u.id, modo: "email", redirect_to: redirectUrl("/admin/redefinir-senha") },
                     `Link de redefinição enviado para ${dialogo.u.email}.`,
                   );
                   if (r) setDialogo(null);
@@ -344,7 +345,7 @@ export function Usuarios() {
                   className="btn whatsapp"
                   target="_blank"
                   rel="noreferrer"
-                  href={waLink(dialogo.whatsapp, `Olá, ${dialogo.nome.split(" ")[0]}! Seu acesso ao painel da ${settings.nome} foi criado.\nE-mail: ${dialogo.email}\nSenha provisória: ${dialogo.senha}\nEntre em ${location.origin}/admin/login`)}
+                  href={waLink(dialogo.whatsapp, `Olá, ${dialogo.nome.split(" ")[0]}! Seu acesso ao painel da ${settings.nome} foi criado.\nE-mail: ${dialogo.email}\nSenha provisória: ${dialogo.senha}\nEntre em ${appUrl("/admin/login")}`)}
                 >
                   <Icon name="whatsapp" size={16} /> Enviar acesso por WhatsApp
                 </a>

@@ -1,4 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HASH_MODE } from "./lib/env";
 import { SiteProvider } from "./site/SiteContext";
 import { SiteLayout } from "./site/SiteLayout";
 import { Home } from "./site/pages/Home";
@@ -18,9 +19,11 @@ import { Atividades } from "./admin/pages/Atividades";
 import { MinhaConta } from "./admin/pages/MinhaConta";
 import { Backdrop, ToastProvider } from "./components/ui";
 
+const Router = HASH_MODE ? HashRouter : BrowserRouter;
+
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <SiteProvider>
         <AuthProvider>
           <ToastProvider>
@@ -51,6 +54,6 @@ export default function App() {
           </ToastProvider>
         </AuthProvider>
       </SiteProvider>
-    </BrowserRouter>
+    </Router>
   );
 }

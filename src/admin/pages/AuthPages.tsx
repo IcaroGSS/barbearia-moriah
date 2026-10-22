@@ -7,6 +7,7 @@ import { maskPhone } from "../../lib/format";
 import { waLink } from "../../lib/whatsapp";
 import { Icon } from "../../components/Icon";
 import { firstAllowedPath } from "../nav";
+import { appUrl, redirectUrl } from "../../lib/env";
 
 function AuthShell({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
   const { settings } = useSite();
@@ -117,7 +118,7 @@ export function SignupPage() {
       password: senha,
       options: {
         data: { nome: nome.trim(), whatsapp: whatsapp.replace(/\D/g, "") },
-        emailRedirectTo: `${location.origin}/admin/login`,
+        emailRedirectTo: redirectUrl("/admin/login"),
       },
     });
     setEnviando(false);
@@ -141,7 +142,7 @@ export function SignupPage() {
   };
 
   if (feito) {
-    const linkSolicitacao = `${location.origin}/admin/usuarios?aba=pendentes`;
+    const linkSolicitacao = appUrl("/admin/usuarios?aba=pendentes");
     const msg = `Olá! Sou ${nome.trim()} e pedi acesso ao painel da ${settings.nome} (${email.trim()}).\n\nVer solicitação: ${linkSolicitacao}`;
     return (
       <AuthShell title="Solicitação enviada">
@@ -212,7 +213,7 @@ export function ForgotPasswordPage() {
     setErro(null);
     setEnviando(true);
     const { data, error } = await supabase.functions.invoke("request-password-reset", {
-      body: { email: email.trim(), redirect_to: `${location.origin}/admin/redefinir-senha` },
+      body: { email: email.trim(), redirect_to: redirectUrl("/admin/redefinir-senha") },
     });
     setEnviando(false);
     if (error) return setErro("Não foi possível enviar agora. Tente novamente em instantes.");

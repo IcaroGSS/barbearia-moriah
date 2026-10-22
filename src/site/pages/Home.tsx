@@ -3,7 +3,7 @@ import { useSite } from "../SiteContext";
 import { DIAS, hhmm, minutesToLabel, money } from "../../lib/format";
 import { Icon } from "../../components/Icon";
 import { waLink } from "../../lib/whatsapp";
-import { instagramUrl } from "../SiteLayout";
+import { SectionLink, instagramUrl } from "../SiteLayout";
 
 export function Home() {
   const { settings, services, hours } = useSite();
@@ -21,9 +21,9 @@ export function Home() {
               <Link to="/agendar" className="btn primary">
                 <Icon name="agenda" /> Agendar horário
               </Link>
-              <a href="#servicos" className="btn">
+              <SectionLink id="servicos" className="btn">
                 Ver serviços
-              </a>
+              </SectionLink>
             </div>
           </div>
           <div className="hero-badge" aria-hidden="true">

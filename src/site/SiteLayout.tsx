@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useEffect, type MouseEvent, type ReactNode } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSite } from "./SiteContext";
 import { trackPageView } from "../lib/tracking";
 import { Icon } from "../components/Icon";
@@ -23,9 +23,9 @@ export function SiteLayout() {
           <span>{settings.nome}</span>
         </Link>
         <nav className="site-nav">
-          <a href="/#servicos">Serviços</a>
-          <a href="/#sobre">Sobre</a>
-          {(settings.endereco || settings.whatsapp || settings.instagram) && <a href="/#contato">Contato</a>}
+          <SectionLink id="servicos">Serviços</SectionLink>
+          <SectionLink id="sobre">Sobre</SectionLink>
+          {(settings.endereco || settings.whatsapp || settings.instagram) && <SectionLink id="contato">Contato</SectionLink>}
           <Link to="/agendar" className="btn primary sm keep">
             Agendar
           </Link>
@@ -52,6 +52,26 @@ export function SiteLayout() {
         </div>
       </footer>
     </>
+  );
+}
+
+/** Link para uma seção da página inicial (funciona com rotas normais e com #) */
+export function SectionLink({ id, className, children }: { id: string; className?: string; children: ReactNode }) {
+  const nav = useNavigate();
+  const { pathname } = useLocation();
+  const ir = (e: MouseEvent) => {
+    e.preventDefault();
+    const rolar = () => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    if (pathname === "/") rolar();
+    else {
+      nav("/");
+      setTimeout(rolar, 150);
+    }
+  };
+  return (
+    <a href={`#${id}`} className={className} onClick={ir}>
+      {children}
+    </a>
   );
 }
 
