@@ -1,0 +1,7 @@
+project_id = "barbearia-moriah"
+
+[functions.admin-users]
+verify_jwt = true
+
+[functions.request-password-reset]
+verify_jwt = false
