@@ -66,6 +66,15 @@ npm install
 npm run dev                  # http://localhost:5173
 ```
 
+## Ver sem hospedagem (arquivo único)
+
+```bash
+npm run build:arquivo        # gera dist-arquivo/index.html
+```
+
+Esse HTML abre com dois cliques, direto do computador, e já conversa com o Supabase de verdade (site, agendamento e painel).
+As rotas usam `#` (ex.: `index.html#/admin/login`). Links de e-mail (confirmação e senha) voltam para a Site URL do projeto, não para o arquivo.
+
 ## Publicar (Vercel, Netlify ou similar)
 
 - Comando de build: `npm run build` · Pasta: `dist`
